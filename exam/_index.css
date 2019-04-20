@@ -1,0 +1,137 @@
+body, td {
+    font-size: 10pt;
+    line-height: 13pt;
+}
+body {
+    background-color: #ffffff;
+    margin-top: 10px;
+}
+
+a:link {
+    color: #4351ed;
+    text-decoration: none;
+}
+a:visited {
+    color: #4351ed;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+a:active {
+    color: #0000ff;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 16pt;
+}
+
+.show_contents {
+    display: block;
+}
+
+.hide_contents {
+    display: none;
+}
+
+.subcontents_area {
+    border: dotted 1px;
+    padding: 8px;
+    /* top:8 right:8 bottom:8 left:8 */
+    margin: 8px 30px 8px 30px;
+    /* top:8 right:30 bottom:8 left:30 */
+    background-color: #f6f6f6;
+}
+
+.black_border {
+    border-color: #000000;
+    margin-left: 10pt;
+}
+
+.black_border td {
+    border-color: #000000;
+}
+
+.subTitle {
+    font-size: 10pt;
+    font-weight: normal;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.subcntntsByTable {
+    border: dotted #000 1px;
+    margin-left: 10px;
+    background-color: #f6f6f6;
+}
+
+.subcntntsByTable td {
+    padding: 16px;
+}
+
+.tableStyle01 {
+    margin-left: 20px;
+}
+
+.tableStyle01 td {
+    padding-right: 16px;
+}
+
+#topTitle {
+    font: 12pt "Arial Black";
+    color: #505050;
+    margin-bottom: 0px;
+}
+
+#Valid_W3C_Mark {
+    text-align: right;
+}
+
+#footer_copyright {
+    text-align: center;
+    font-family: "ＭＳ Ｐゴシック";
+}
+
+em {
+    font-style: normal;
+    font-weight: bold;
+}
+
+.strInProg {
+    color: #0000ff;
+}
+.commentInProg {
+    color: #008000;
+}
+
+.color_skyblue {
+    color: #4351ed;
+}
+.color_skyred {
+    color: #cc1234;
+}
+.color_skyred2 {
+    color: #dd4351;
+}
+.color_black {
+    color: #000000;
+}
+.color_blue {
+    color: #0000ff;
+}
+.subTx {
+    font-size: 8pt;
+}
+.largeSize {
+    font-size: 13pt;
+}
+.underline {
+    text-decoration: underline;
+}
+.normal_weight {
+    font-weight: normal;
+}
+.font_monospace {
+    font-family: "ＭＳ ゴシック", "さざなみ", "IPAフォント", Osaka-等幅, "Courier New", Monospace, Courier;
+}
