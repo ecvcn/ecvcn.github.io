@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="MSThemeCompatible" content="Yes" />
+<title>ハイパーリンク生成</title>
+
+<script type="text/javascript">
+// var window_width  = 730;
+// var window_height = 595;
+
+// 最初にウィンドウをリサイズする
+// resizeTo(window_width, window_height);
+// moveTo((screen.availWidth-window_width)/2, (screen.availHeight-window_height)/2);
+
+function $(arg) {
+    if (typeof arg == "string") return document.getElementById(arg);
+    return arg;
+}
+
+function generateHyperLink() {
+    var input_url = $("url").value;
+    
+    $("result").innerHTML = '<a href="' + input_url + '" target="_blank">' + input_url + '</a><br />';
+}
+
+function addHyperLinkToList() {
+    var input_url = $("url").value;
+    
+    $("result_list").innerHTML += '<a href="' + input_url + '" target="_blank">' + input_url + '</a><br />';
+}
+
+window.onload = function() {
+    $("addlist").onclick = addHyperLinkToList;
+    $("url").onkeyup  = generateHyperLink;
+}
+
+</script>
+<hta:application border="dialog" scroll="no" maximizebutton="no" />
+</head>
+<body>
+
+<h1>ハイパーリンク生成</h1>
+
+<div id="container">
+    URL：<input type="text" id="url" value="http://" size="100" /> <input type="button" id="addlist" value="add list" /><br />
+    <br /><br />
+</div> <!-- end of id="container" -->
+
+<div id="result"></div>
+
+<div><br /></div>
+
+<div id="result_list"></div>
+
+</body>
+</html>
