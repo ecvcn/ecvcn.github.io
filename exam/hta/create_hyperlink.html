@@ -26,8 +26,11 @@ function generateHyperLink() {
 
 function addHyperLinkToList() {
     var input_url = $("url").value;
+    if (input_url == "") return;
     
     $("result_list").innerHTML += '<a href="' + input_url + '" target="_blank">' + input_url + '</a><br />';
+    $("url").value = '';
+    $("result").innerHTML = '';
 }
 
 window.onload = function() {
@@ -43,7 +46,7 @@ window.onload = function() {
 <h1>ハイパーリンク生成</h1>
 
 <div id="container">
-    URL：<input type="text" id="url" value="http://" size="100" /> <input type="button" id="addlist" value="add list" /><br />
+    URL：<input type="text" id="url" value="https://" size="100" /> <input type="button" id="addlist" value="add list" /><br />
     <br /><br />
 </div> <!-- end of id="container" -->
 
