@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="MSThemeCompatible" content="Yes" />
+<title>Convert Himado Script</title>
+
+<script type="text/javascript">
+var window_width  = 730;
+var window_height = 620;
+
+// 最初にウィンドウをリサイズする
+resizeTo(window_width, window_height);
+moveTo((screen.availWidth-window_width)/2, (screen.availHeight-window_height)/2);
+
+function $(arg) {
+    if (typeof arg == "string") return document.getElementById(arg);
+    return arg;
+}
+
+/*
+ * Himado Script Sample
+ * 
+ * var movie_url = 'https%3A%2F%2Fs3.amazonaws.com%2Fksr%2Fassets%2F003%2F210%2F709%2F20b78ec6a54dcaf3e967264a0b46096c_original.mp3%3F';
+ * var display_movie_url = 'https%3A%2F%2Fs3.amazonaws.com%2Fksr%2Fassets%2F003%2F210%2F709%2F20b78ec6a54dcaf3e967264a0b46096c_original.mp3%3F';
+ * var isOtherSource = '';
+ * var sourceid = '';
+ * var movie_id = '257278';
+ * var post_id = '302264';
+ * var dir_url = 'http://localhost/';
+ * var ary_mov_url = new Array();
+ * var commentlink = '';
+ * var ary_commentlink = {"link":[{"id":"302264","last_res":"1864","rate":"0","source":"0","official":"1","vpos_shift":"0"},{"id":"302265","last_res":"17","rate":"0","source":"1","official":"1","vpos_shift":"0"}]};
+ * var totalbytes = 0;
+ * var sourceKind = 'video';
+ * var spare_sources = '';
+ * var ary_spare_sources = {
+ *     "spare":[
+ *         {
+ *             "lid":"1",
+ *             "src":"http%3A%2F%2Fdopefile.com%2Fmp3embed-1a0a3rjdrdbj.mp3%3F"
+ *         },
+ *         {
+ *             "lid":"2",
+ *             "src":"http%3A%2F%2Frosharing.com%2Fmp3embed-cklwjzyyq7dh.mp3%3F"
+ *         },
+ *         
+ *         ......
+ *         
+ *         {
+ *             "lid":"7",
+ *             "src":"http%3A%2F%2Ffc07.deviantart.net%2Ffs71%2Ff%2F2015%2F030%2F6%2Fe%2Fdesupare_04_200_by_pointer686-d8fzwjb.bmp"
+ *         }
+ *     ]
+ * };
+ * 
+ * ary_spare_sources の使い方 (n = ary_spare_sources.spare.length)
+ * 
+ * ary_spare_sources.spare[0].src
+ * ary_spare_sources.spare[1].src
+ * .
+ * .
+ * .
+ * ary_spare_sources.spare[n - 1].src
+ * 
+ */
+
+function execDecode() {
+    var in_str = $("inStr").value;
+    var movie_url;
+    var ary_spare_sources = {"spare":[]};
+    var rslt_arr = [];
+    
+    if (in_str == "") {
+        alert("error: no input.");
+        return;
+    }
+    
+    var str4eval = decodeURIComponent(in_str);
+    
+    try {
+        // Himado Script を評価する。
+        eval(str4eval);
+    }
+    catch(e) {
+        alert("error: Invalid syntax.");
+        return;
+    }
+    
+    /* これより以下，Himado Script の変数が使用できる。 */
+    
+    if (movie_url) {
+        rslt_arr.push(movie_url.replace(/\?$/g, '').replace(/ /g, "%20").replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/&amp;/g, '&'));
+    }
+    
+    for(var i = 0; i < ary_spare_sources.spare.length; i++) {
+        rslt_arr.push(ary_spare_sources.spare[i].src.replace(/\?$/g, '').replace(/ /g, "%20").replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/&amp;/g, '&'));
+    }
+    
+    if ($("del_https").checked) {
+        rslt_arr = execDelete(rslt_arr);
+    }
+    
+    $("resStr").value = rslt_arr.join('\n') + "\n";
+    $("inStr").value = "";
+}
+
+function execDelete(url_arr) {
+    var regPattern1  = /www\.youtube\.com/;
+    var regPattern2  = /s\d+.*\.amazonaws\.com/;
+    var regPattern3  = /storage\d+\.dropshots\.com/;
+    var regPattern4  = /my\.mixtape\.moe/;
+    var regPattern5  = /www\.skyfish\.com/;
+    var regPattern6  = /\d+\.sendit\.download/;
+    var regPattern7  = /s\d+\.filetrip\.net/;
+    var regPattern8  = /filerio\.in/;
+    var regPattern9  = /garudafile\.com/;
+    var regPattern10 = /cryply\.download/;
+    var regPattern11 = /a\.uguu\.se/;
+    
+    for(var i = 0; i < url_arr.length; i++) {
+        // Delete Internet Archive URL
+        url_arr[i] = url_arr[i].replace(/^https:\/\/web.archive.org\/web\/\d{14}\//, "");
+        
+        if (regPattern1.test(url_arr[i])
+         || regPattern2.test(url_arr[i])
+         || regPattern3.test(url_arr[i])
+         || regPattern4.test(url_arr[i])
+         || regPattern5.test(url_arr[i])
+         || regPattern6.test(url_arr[i])
+         || regPattern7.test(url_arr[i])
+         || regPattern8.test(url_arr[i])
+         || regPattern9.test(url_arr[i])
+         || regPattern10.test(url_arr[i])
+         || regPattern11.test(url_arr[i])
+        );
+        else {
+            // Change https to http
+            url_arr[i] = url_arr[i].replace(/^https/, "http");
+        }
+    }
+    
+    return url_arr;
+}
+
+function clearTextarea() {
+    $("inStr").value = "";
+}
+
+window.onload = function() {
+    $("de").onclick = execDecode;
+    $("clear_btn").onclick = clearTextarea;
+    
+    $("inStr").focus();
+}
+
+</script>
+<hta:application border="dialog" scroll="no" maximizebutton="no" />
+</head>
+<body>
+
+<div align="right" style="margin-right:30px"><input type="button" id="clear_btn" value="clear" /></div>
+<div id="container" align="center">
+    <textarea id="inStr" name="inStr" cols="90" rows="15" wrap="off" style="font-family: ＭＳ ゴシック; font-size:10pt"></textarea><br />
+    <br />
+    <input type="button" id="de" value="decode ↓" /><br />
+    <br />
+    <textarea id="resStr" name="resStr" cols="90" rows="15" wrap="off" style="font-family: ＭＳ ゴシック; font-size:10pt"></textarea><br />
+</div> <!-- end of id="container" -->
+
+<div align="right" style="margin-right:30px"><input type="checkbox" id="del_https" value="del" checked="checked" />delete archive and https</div>
+
+</body>
+</html>

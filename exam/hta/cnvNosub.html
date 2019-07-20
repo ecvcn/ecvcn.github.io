@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="MSThemeCompatible" content="Yes" />
+<title>Convert Nosub Script</title>
+
+<script type="text/javascript">
+var window_width  = 730;
+var window_height = 620;
+
+// 最初にウィンドウをリサイズする
+resizeTo(window_width, window_height);
+moveTo((screen.availWidth-window_width)/2, (screen.availHeight-window_height)/2);
+
+function $(arg) {
+    if (typeof arg == "string") return document.getElementById(arg);
+    return arg;
+}
+
+/*
+ * Nosub Script Sample
+ * 
+ * window.PLAYER = [
+ *     {
+ *       "title":"360pFC2",
+ *       "value":"20180120nRHDe69L",
+ *       "links":{
+ *                 "file":"http:\/\/www.nosub.tv\/wp-content\/themes\/nosub\/player\/to.php?aHR0cDovL3d3dy51cmwuY20vYUhSMGNEb3ZMM1pwWkdWdkxtWmpNaTVqYjIwdlkyOXVkR1Z1ZEM4eU1ERTRNREV5TUc1U1NFUmxOamxNP2FwaUlEPTEmYXBpUGFzc3dvcmQ9N2U2MWFhNjg4YTMyZTc0MGQ1OTk1NWVkMjM5YzAwNzQ"
+ *               },
+ *       "ID":249914
+ *     },
+ *     {
+ *       "title":"360p",
+ *       "value":"http:\/\/s2.upbom.com\/i\/00037\/62etbt9g2cng.jpg",
+ *       "links":{"file":"http:\/\/www.nosub.tv\/wp-content\/themes\/nosub\/player\/to.php?aHR0cDovL3MyLnVwYm9tLmNvbS9pLzAwMDM3LzYyZXRidDlnMmNuZy5qcGc"},
+ *       "ID":249915
+ *     },
+ *     {"title":"360p","value":"https:\/\/ia601503.us.archive.org\/11\/items\/beatless_02_mbs_20180123\/beatless_02_mbs.mp4","links":{"file":"http:\/\/www.nosub.tv\/wp-content\/themes\/nosub\/player\/to.php?aHR0cHM6Ly9pYTYwMTUwMy51cy5hcmNoaXZlLm9yZy8xMS9pdGVtcy9iZWF0bGVzc18wMl9tYnNfMjAxODAxMjMvYmVhdGxlc3NfMDJfbWJzLm1wNA"},"ID":250055},
+ *     {"title":"360p","value":"http:\/\/www.indishare.com\/mp3embed-stolqbrymz2l.mp3?","links":{"file":"http:\/\/www.nosub.tv\/wp-content\/themes\/nosub\/player\/to.php?aHR0cDovL3d3dy5pbmRpc2hhcmUuY29tL21wM2VtYmVkLXN0b2xxYnJ5bXoybC5tcDM_"},"ID":249917},
+ *     {"title":"360p\u5009\u5eab","value":"http:\/\/www.nofile.com\/hm95vb0","links":{"file":"http:\/\/www.nosub.tv\/wp-content\/themes\/nosub\/player\/to.php?aHR0cDovL3d3dy51cmwuY20vYUhSMGNEb3ZMM2QzZHk1dWIyWnBiR1V1WTI5dEwyaHRPVFYyWWpBP2FwaUlEPTEmYXBpUGFzc3dvcmQ9N2U2MWFhNjg4YTMyZTc0MGQ1OTk1NWVkMjM5YzAwNzQ"},"ID":249918},
+ *     {"title":"720pFC2","value":"20180120PyYDhgay","links":{"file":"http:\/\/www.nosub.tv\/wp-content\/themes\/nosub\/player\/to.php?aHR0cDovL3d3dy51cmwuY20vYUhSMGNEb3ZMM1pwWkdWdkxtWmpNaTVqYjIwdlkyOXVkR1Z1ZEM4eU1ERTRNREV5TUZCNVdVUm9aMkY1P2FwaUlEPTEmYXBpUGFzc3dvcmQ9N2U2MWFhNjg4YTMyZTc0MGQ1OTk1NWVkMjM5YzAwNzQ"},"ID":250056},
+ *     {"title":"720p","value":"https:\/\/ia601501.us.archive.org\/32\/items\/BEATLESS02Mbs200_20180123\/BEATLESS_02_mbs200.mp4","links":{"file":"http:\/\/www.nosub.tv\/wp-content\/themes\/nosub\/player\/to.php?aHR0cHM6Ly9pYTYwMTUwMS51cy5hcmNoaXZlLm9yZy8zMi9pdGVtcy9CRUFUTEVTUzAyTWJzMjAwXzIwMTgwMTIzL0JFQVRMRVNTXzAyX21iczIwMC5tcDQ"},"ID":250057},
+ *     {"title":"720p","value":"http:\/\/www.indishare.com\/mp3embed-w6m7g3eftrft.mp3?","links":{"file":"http:\/\/www.nosub.tv\/wp-content\/themes\/nosub\/player\/to.php?aHR0cDovL3d3dy5pbmRpc2hhcmUuY29tL21wM2VtYmVkLXc2bTdnM2VmdHJmdC5tcDM_"},"ID":250058},
+ *     {"title":"720p","value":"http:\/\/s7.upbom.com\/i\/00037\/uj0bkte3bvjq.jpg","links":{"file":"http:\/\/www.nosub.tv\/wp-content\/themes\/nosub\/player\/to.php?aHR0cDovL3M3LnVwYm9tLmNvbS9pLzAwMDM3L3VqMGJrdGUzYnZqcS5qcGc"},"ID":250059},
+ *     {"title":"720p","value":"https:\/\/download.spaces.hightail.com\/api\/v1\/stream\/sp-6fcb1f1f-5827-47f5-bfa6-caf35578a098\/fi-afc493ea-275a-4970-9f3d-b9f4dadd2931\/fv-2484d93d-876c-451e-8b2d-43c78b32f320\/BEATLESS_02_mbs200.mp3?","links":{"file":"http:\/\/www.nosub.tv\/wp-content\/themes\/nosub\/player\/to.php?aHR0cHM6Ly9kb3dubG9hZC5zcGFjZXMuaGlnaHRhaWwuY29tL2FwaS92MS9zdHJlYW0vc3AtNmZjYjFmMWYtNTgyNy00N2Y1LWJmYTYtY2FmMzU1NzhhMDk4L2ZpLWFmYzQ5M2VhLTI3NWEtNDk3MC05ZjNkLWI5ZjRkYWRkMjkzMS9mdi0yNDg0ZDkzZC04NzZjLTQ1MWUtOGIyZC00M2M3OGIzMmYzMjAvQkVBVExFU1NfMDJfbWJzMjAwLm1wMz8"},"ID":250060},
+ *     {"title":"720p","value":"https:\/\/www.europeup.com\/vidembed-w4ej8sb8jnv8","links":{"file":"http:\/\/www.nosub.tv\/wp-content\/themes\/nosub\/player\/to.php?aHR0cHM6Ly93d3cuZXVyb3BldXAuY29tL3ZpZGVtYmVkLXc0ZWo4c2I4am52OA"},"ID":250062}
+ * ];
+ * 
+ * window.PLAYER の使い方 (n = window.PLAYER.length)
+ * 
+ * window.PLAYER[0].value
+ * window.PLAYER[1].value
+ * .
+ * .
+ * .
+ * window.PLAYER[n - 1].value
+ * 
+ */
+
+function execDecode() {
+    var in_str = $("inStr").value;
+    window.PLAYER = [];
+    var rslt_arr = [];
+    
+    if (in_str == "") {
+        alert("error: no input.");
+        return;
+    }
+    
+    var str4eval = decodeURIComponent(in_str);
+    
+    try {
+        // Nosub Script を評価する。
+        eval(str4eval);
+    }
+    catch(e) {
+        alert("error: Invalid syntax.");
+        return;
+    }
+    
+    /* これより以下，Nosub Script の変数が使用できる。 */
+    
+    for(var i = 0; i < window.PLAYER.length; i++) {
+        rslt_arr.push(window.PLAYER[i].value.replace(/\?$/g, '').replace(/ /g, "%20").replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/&amp;/g, '&'));
+    }
+    
+    if ($("del_https").checked) {
+        rslt_arr = execDelete(rslt_arr);
+    }
+    
+    $("resStr").value = rslt_arr.join('\n') + "\n";
+    $("inStr").value  = "";
+}
+
+function execDelete(url_arr) {
+    var regPattern1  = /www\.youtube\.com/;
+    var regPattern2  = /s\d+.*\.amazonaws\.com/;
+    var regPattern3  = /storage\d+\.dropshots\.com/;
+    var regPattern4  = /my\.mixtape\.moe/;
+    var regPattern5  = /www\.skyfish\.com/;
+    var regPattern6  = /\d+\.sendit\.download/;
+    var regPattern7  = /s\d+\.filetrip\.net/;
+    var regPattern8  = /filerio\.in/;
+    var regPattern9  = /garudafile\.com/;
+    var regPattern10 = /cryply\.download/;
+    var regPattern11 = /a\.uguu\.se/;
+    
+    for(var i = 0; i < url_arr.length; i++) {
+        // Delete Internet Archive URL
+        url_arr[i] = url_arr[i].replace(/^https:\/\/web.archive.org\/web\/\d{14}\//, "");
+        
+        if (regPattern1.test(url_arr[i])
+         || regPattern2.test(url_arr[i])
+         || regPattern3.test(url_arr[i])
+         || regPattern4.test(url_arr[i])
+         || regPattern5.test(url_arr[i])
+         || regPattern6.test(url_arr[i])
+         || regPattern7.test(url_arr[i])
+         || regPattern8.test(url_arr[i])
+         || regPattern9.test(url_arr[i])
+         || regPattern10.test(url_arr[i])
+         || regPattern11.test(url_arr[i])
+        );
+        else {
+            // Change https to http
+            url_arr[i] = url_arr[i].replace(/^https/, "http");
+        }
+    }
+    
+    return url_arr;
+}
+
+function clearTextarea() {
+    $("inStr").value = "";
+}
+
+window.onload = function() {
+    $("de").onclick = execDecode;
+    $("clear_btn").onclick = clearTextarea;
+}
+
+</script>
+<hta:application border="dialog" scroll="no" maximizebutton="no" />
+</head>
+<body>
+
+<div align="right" style="margin-right:30px"><input type="button" id="clear_btn" value="clear" /></div>
+<div id="container" align="center">
+    <textarea id="inStr" name="inStr" cols="90" rows="15" wrap="off" style="font-family: ＭＳ ゴシック; font-size:10pt"></textarea><br />
+    <br />
+    <input type="button" id="de" value="decode ↓" /><br />
+    <br />
+    <textarea id="resStr" name="resStr" cols="90" rows="15" wrap="off" style="font-family: ＭＳ ゴシック; font-size:10pt"></textarea><br />
+</div> <!-- end of id="container" -->
+
+<div align="right" style="margin-right:30px"><input type="checkbox" id="del_https" value="del" checked="checked" />delete archive and https</div>
+
+</body>
+</html>
