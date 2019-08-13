@@ -82,18 +82,18 @@ function execDecode() {
     /* これより以下，Nosub Script の変数が使用できる。 */
     
     for(var i = 0; i < window.PLAYER.length; i++) {
-        rslt_arr.push(window.PLAYER[i].value.replace(/\?$/g, '').replace(/ /g, "%20").replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/&amp;/g, '&'));
+        rslt_arr.push( window.PLAYER[i].value.replace(/^https:\/\/web.archive.org\/web\/\d{14}\//, "").replace(/\?$/g, '').replace(/ /g, "%20").replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/&amp;/g, '&') );
     }
     
-    if ($("del_https").checked) {
-        rslt_arr = execDelete(rslt_arr);
+    if ($("cnv_https").checked) {
+        rslt_arr = execConvert(rslt_arr);
     }
     
     $("resStr").value = rslt_arr.join('\n') + "\n";
     $("inStr").value  = "";
 }
 
-function execDelete(url_arr) {
+function execConvert(url_arr) {
     var regPattern1  = /www\.youtube\.com/;
     var regPattern2  = /s\d+.*\.amazonaws\.com/;
     var regPattern3  = /storage\d+\.dropshots\.com/;
@@ -107,9 +107,6 @@ function execDelete(url_arr) {
     var regPattern11 = /a\.uguu\.se/;
     
     for(var i = 0; i < url_arr.length; i++) {
-        // Delete Internet Archive URL
-        url_arr[i] = url_arr[i].replace(/^https:\/\/web.archive.org\/web\/\d{14}\//, "");
-        
         if (regPattern1.test(url_arr[i])
          || regPattern2.test(url_arr[i])
          || regPattern3.test(url_arr[i])
@@ -123,7 +120,7 @@ function execDelete(url_arr) {
          || regPattern11.test(url_arr[i])
         );
         else {
-            // Change https to http
+            // Convert https to http
             url_arr[i] = url_arr[i].replace(/^https/, "http");
         }
     }
@@ -156,7 +153,7 @@ window.onload = function() {
     <textarea id="resStr" name="resStr" cols="90" rows="15" wrap="off" style="font-family: ＭＳ ゴシック; font-size:10pt"></textarea><br />
 </div> <!-- end of id="container" -->
 
-<div align="right" style="margin-right:30px"><input type="checkbox" id="del_https" value="del" checked="checked" />delete archive and https</div>
+<div align="right" style="margin-right:30px"><input type="checkbox" id="cnv_https" value="cnv" checked="checked" />convert https</div>
 
 </body>
 </html>
